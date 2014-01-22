@@ -43,6 +43,19 @@ enum {
 	KEY_CITY
 };
 
+static void refreshHome()
+{
+	text_layer_set_text(temp_layer, "?\u00B0F");
+	icon_bitmap = gbitmap_create_with_resource(WEATHER_ICONS[0]);
+    bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
+	text_layer_set_text(city_layer, "N/A");
+	
+	DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+    Tuplet value = TupletInteger(1, 42);
+    dict_write_tuplet(iter, &value);
+	app_message_outbox_send();
+}
 /**
  * Do the inital window setup creating and setting the various layers
  */
@@ -118,6 +131,28 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 	}
 }
 
+void out_sent_handler(DictionaryIterator *sent, void *context) {
+   // outgoing message was delivered
+ }
+
+static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
+    refreshHome();
+}
+
+static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
+    refreshHome();
+}
+
+static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
+    refreshHome();
+}
+
+static void click_config_provider(void *context) {
+  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
+  window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
+  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
+}
+
 /**
  * Break down and unload the window
  */
@@ -138,12 +173,14 @@ static void init(void) {
     window = window_create();
     window_set_background_color(window, GColorBlack);
     window_set_fullscreen(window, true);
+	window_set_click_config_provider(window, click_config_provider);
     window_set_window_handlers(window, (WindowHandlers) {
         .load = window_load,
         .unload = window_unload
     });	
 	
 	app_message_register_inbox_received(in_received_handler);
+	app_message_register_outbox_sent(out_sent_handler);
 	
     const int inbound_size = 64;
     const int outbound_size = 64;

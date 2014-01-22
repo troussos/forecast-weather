@@ -22,7 +22,6 @@ function getWeather(lat, long){
 				for(i=0; i<addressParts[h].address_components.length; i++) {
 					for(j=0; j<addressParts[h].address_components[i].types.length; j++)
 					{
-						console.log(addressParts[h].address_components[i].types[j])
 						if(addressParts[h].address_components[i].types[j] == "sublocality")
 						{
 							city = addressParts[h].address_components[i].short_name;
@@ -92,3 +91,9 @@ Pebble.addEventListener("ready",
                         function(e) {
                           locationWatcher = window.navigator.geolocation.watchPosition(locationSuccess, locationError, locationOptions);
                         });
+
+Pebble.addEventListener("appmessage",
+  function(e) {
+	locationWatcher = window.navigator.geolocation.watchPosition(locationSuccess, locationError, locationOptions);
+  }
+);
