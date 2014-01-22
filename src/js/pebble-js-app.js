@@ -4,7 +4,7 @@ var temp;
 
 function getWeather(lat, long){
 	var rawResponse;
-	var apiKey = "ADD YOUR KEY HERE";
+	var apiKey = "ADD YOUR API KEY HERE";
 	var forecastRequest = new XMLHttpRequest();
 	var geocodingRequest = new XMLHttpRequest();
 	
@@ -16,16 +16,22 @@ function getWeather(lat, long){
 			var addressParts = geoResponse.results;
 			city = "N/A";
 			var breakFlag = false;
+			var locality = "";
 			for(h=0;h<addressParts.length; h++)
 			{
 				for(i=0; i<addressParts[h].address_components.length; i++) {
 					for(j=0; j<addressParts[h].address_components[i].types.length; j++)
 					{
+						console.log(addressParts[h].address_components[i].types[j])
 						if(addressParts[h].address_components[i].types[j] == "sublocality")
 						{
 							city = addressParts[h].address_components[i].short_name;
 							breakFlag = true;
 							break;
+						}
+						else if(addressParts[h].address_components[i].types[j] == "locality")
+						{
+							locality = addressParts[h].address_components[i].short_name;
 						}
 					}
 					if(breakFlag == true)
@@ -37,6 +43,11 @@ function getWeather(lat, long){
 				{
 					break;
 				}
+			}
+			
+			if(city == "N/A" && locality != "")
+			{
+				city = locality;
 			}
 
 			Pebble.sendAppMessage({
