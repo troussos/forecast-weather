@@ -5,7 +5,8 @@
     "longName": "Forecast Weather",
     "versionCode": 1,
     "capabilities": [
-        ""
+        "location",
+        "configurable"
     ],
     "shortName": "Forecast Weather",
     "companyName": "troussos",
@@ -14,6 +15,56 @@
     },
     "resources": {
         "media": [
+            {
+                "type": "png",
+                "name": "IMAGE_WIND",
+                "file": "images/wind.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_THERMO",
+                "file": "images/thermometer.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_SUN",
+                "file": "images/sun.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_SLEET",
+                "file": "images/sleet.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_RAIN",
+                "file": "images/rain.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_MOON",
+                "file": "images/moon.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_FOG",
+                "file": "images/fog.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_CLOUD_SUN",
+                "file": "images/cloud-sun.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_CLOUD_MOON",
+                "file": "images/cloud-moon.png"
+            },
+            {
+                "type": "png",
+                "name": "IMAGE_SNOW",
+                "file": "images/snow.png"
+            },
             {
                 "type": "png",
                 "name": "IMAGE_CLOUD",
