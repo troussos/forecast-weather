@@ -13,6 +13,12 @@
         "watchface": false
     },
     "resources": {
-        "media": []
+        "media": [
+            {
+                "type": "png",
+                "name": "IMAGE_CLOUD",
+                "file": "images/small_cloud.png"
+            }
+        ]
     }
 }
